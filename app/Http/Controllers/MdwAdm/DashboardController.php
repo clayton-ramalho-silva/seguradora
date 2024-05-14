@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
         $userGuard = User::activeGuard();
         
-        return view('admin.dashboard', [
+        return view('admin.pages.dashboard', [
             'userGuard' => $userGuard
         ]);
     }
