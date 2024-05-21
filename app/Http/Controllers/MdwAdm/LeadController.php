@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\MdwAdm;
 
+use App\Http\Controllers\Controller;
 use App\Models\Lead;
 use Illuminate\Http\Request;
 

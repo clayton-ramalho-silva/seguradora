@@ -253,9 +253,26 @@ $(".delete-multiple").on("click", function() {
       inboxCheckboxParents.remove();
 });
 
-deleteContact();
-addContact();
-editContact();
+//deleteContact();
+//addContact();
+//editContact();
+
+// Editar Contato
+function editarContato() {
+  $('.edit').on('click', function(event) {
+
+    $('#editContactModal #btn-add').hide();
+    $('#editContactModal #btn-edit').show();
+
+    
+    $('#editContactModal').modal('show');
+
+    
+  })
+}
+
+
+//editarContato();
 
 })
 
@@ -264,7 +281,7 @@ editContact();
 
 var $_getValidationField = document.getElementsByClassName('validation-text');
 var reg = /^.+@[^\.].*\.[a-z]{2,}$/;
-var phoneReg = /^\d{10}$/;
+var phoneReg = /^\d{11}$/;
 
 getNameInput = document.getElementById('c-name');
 
@@ -310,7 +327,7 @@ getPhoneInput.addEventListener('input', function() {
     $_getValidationField[2].innerHTML = 'Phone Number Required';
     $_getValidationField[2].style.display = 'block';
   } else if((phoneReg.test(getPhoneInputValue) == false)) {
-    $_getValidationField[2].innerHTML = 'Invalid (Enter 10 Digits)';
+    $_getValidationField[2].innerHTML = 'Invalid (Enter 11 Digits)';
     $_getValidationField[2].style.display = 'block';
   } else {
     $_getValidationField[2].style.display = 'none';

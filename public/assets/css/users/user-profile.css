@@ -70,7 +70,7 @@ body.minimal .widget-content-area {
       color: #1b55e2; }
   .user-profile .widget-content-area .user-info-list ul.contacts-block {
     border: none;
-    max-width: 217px;
+    max-width: auto;
     margin: 36px auto; }
     .user-profile .widget-content-area .user-info-list ul.contacts-block li {
       margin-bottom: 13px;

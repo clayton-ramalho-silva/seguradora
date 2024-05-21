@@ -10,7 +10,7 @@
     right: -114px;
     width: 150px;
     z-index: 1030;
-    display: flex;
+    display: none;
     background: rgb(236, 230, 246);
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
@@ -64,3 +64,4 @@
     background: #f1f2f3;
     border: 1px solid #bfc9d4;
 }
+

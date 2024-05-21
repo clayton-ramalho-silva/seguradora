@@ -199,129 +199,7 @@ var App = function() {
         },
     }
 
-    var colorPallet = {
-        createPallet: function() {
-            $cPalletHTMl = '<aside id="colorPallet" class="color-pallet">'+
-                                '<div class="pallet-icon">'+
-                                    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>'+
-                                '</div>'+
-                                '<div class="p-colors">'+
-                                    '<div id="default" class="color-scheme-default colorPallet-tooltip" data-original-title="Default"></div>'+
-                                    '<div id="minimal" class="color-scheme-minimal colorPallet-tooltip" data-original-title="Minimal"></div>'+
-                                '</div>'+
-                            '</aside>';
-
-            $(".main-container").after($cPalletHTMl);
-            colorPallet.colorPalletToggle();
-            colorPallet.colorSchemeToggle();
-            if (!$(Selector.getBody).hasClass('application')) {
-                $('.colorPallet-tooltip').tooltip();
-            }
-        },
-        colorPalletToggle: function () {
-            $('.pallet-icon').on('click', function(event) {
-                event.preventDefault();
-                /* Act on the event */
-                thisParent = $(this).parents('.color-pallet');
-
-                if (thisParent.hasClass('show')) {
-                    thisParent.removeClass('show');
-                } else {
-                    thisParent.addClass('show');
-                }
-
-            });
-        },
-        colorSchemeToggle: function () {
-
-            if (!$(Selector.getBody).hasClass('single-page')) {
-
-                if ($(Selector.getBody).hasClass('dashboard-analytics')) {
-
-                    $('#default').on('click', function(event) {
-                        event.preventDefault();
-                        /* Act on the event */
-                        $('.dashboard-analytics-minimal').remove();
-                        $(Selector.getBody).removeClass('minimal');
-                        Cookies.deleteCookie('minimal_theme');
-                    });
-                    $('#minimal').on('click', function(event) {
-                        event.preventDefault();
-                        /* Act on the event */
-                        $html = '<link href="assets/css/dashboard/dash_1-minimal.css" rel="stylesheet" type="text/css" class="dashboard-analytics-minimal" />';
-                        $(".dashboard-analytics").after($html);
-                        $(Selector.getBody).addClass('minimal');
-                        Cookies.setCookie('minimal_theme', 1, 1);
-                    });
-
-                } else if ($(Selector.getBody).hasClass('dashboard-sales')) {
-
-                    $('#default').on('click', function(event) {
-                        event.preventDefault();
-                        /* Act on the event */
-                        $('.dashboard-sales-minimal').remove();
-                        $(Selector.getBody).removeClass('minimal');
-                        Cookies.deleteCookie('minimal_theme');
-                    });
-                    $('#minimal').on('click', function(event) {
-                        event.preventDefault();
-                        /* Act on the event */
-
-                        $html = '<link href="assets/css/dashboard/dash_2-minimal.css" rel="stylesheet" type="text/css" class="dashboard-sales-minimal" />';
-                        $(".dashboard-sales").after($html);
-                        $(Selector.getBody).addClass('minimal');
-                        Cookies.setCookie('minimal_theme', 1, 1);
-                    });
-
-                }
-
-                $('#default').on('click', function(event) {
-                    event.preventDefault();
-                    /* Act on the event */
-                    $('.structure-minimal').remove();
-                    $(Selector.getBody).removeClass('minimal');
-                    Cookies.deleteCookie('minimal_theme');
-                });
-                $('#minimal').on('click', function(event) {
-                    event.preventDefault();
-                    /* Act on the event */
-                    $html = '<link href="assets/css/structure-minimal.css" rel="stylesheet" type="text/css" class="structure-minimal" />';
-                    $(".structure").after($html);
-                    $(Selector.getBody).addClass('minimal');
-                    Cookies.setCookie('minimal_theme', 1, 1);
-                });
-
-            }
-        },
-        setcolorScheme: function() {
-            if (Cookies.getCookie('minimal_theme') != "") {
-                console.log('sfdsf');
-
-                if ($(Selector.getBody).hasClass('dashboard-analytics')) {
-                    $html = '<link href="assets/css/dashboard/dash_1-minimal.css" rel="stylesheet" type="text/css" class="dashboard-analytics-minimal" />';
-                    $(".dashboard-analytics").after($html);
-                } else if ($(Selector.getBody).hasClass('dashboard-sales')) {
-                    $html = '<link href="assets/css/dashboard/dash_2-minimal.css" rel="stylesheet" type="text/css" class="dashboard-sales-minimal" />';
-                    $(".dashboard-sales").after($html);
-                }
-
-                $html = '<link href="assets/css/structure-minimal.css" rel="stylesheet" type="text/css" class="structure-minimal" />';
-                $(".structure").after($html);
-                $(Selector.getBody).addClass('minimal');
-                
-            } else {
-                $('.dashboard-analytics-minimal').remove();
-                $(Selector.getBody).removeClass('minimal');
-            }
-        },
-        setColorPalletTimer: function() {
-            if ($(Selector.getBody).hasClass('dashboard-analytics') || $(Selector.getBody).hasClass('dashboard-sales') || $(Selector.getBody).hasClass('starterkit')) {
-                setTimeout(function() {
-                    $(".color-pallet").addClass('show');
-                },3000);
-            }
-        }
-    }
+   
 
     var Cookies = {
         setCookie: function (cname, cvalue, exdays) {
@@ -475,10 +353,6 @@ var App = function() {
             inBuiltfunctionality.languageDropdown();
             inBuiltfunctionality.onSidebarHover();
 
-
-            colorPallet.createPallet();
-            colorPallet.setColorPalletTimer();
-            colorPallet.setcolorScheme();
         }
     }
 
