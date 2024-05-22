@@ -10,7 +10,7 @@
     </div>
         
     <div class="account-settings-container layout-top-spacing">
-        <form action="{{ route('admin.update-agente', $user->id) }}" method="post">
+        <form action="{{ route('admin.update-agente', $user->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
             <div class="account-content">
@@ -27,7 +27,7 @@
                                             <div class="row">
                                                 <div class="col-xl-2 col-lg-12 col-md-4">
                                                     <div class="upload mt-4 pr-md-4">
-                                                        <input type="file" id="input-file-max-fs" class="dropify" data-default-file="{{ asset('assets/img/200x200.jpg') }}" data-max-file-size="2M" />
+                                                        <input name="logo_company" type="file" id="input-file-max-fs" class="dropify" data-default-file="{{ asset('/img/agentes/'.$user->agent->logo_company) }}" data-max-file-size="2M" />
                                                         <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Logo</p>
                                                     </div>
                                                 </div>
