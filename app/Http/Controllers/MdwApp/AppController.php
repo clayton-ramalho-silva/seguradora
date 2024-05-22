@@ -13,7 +13,9 @@ class AppController extends Controller
     {
         $userGuard = User::activeGuard();
 
-        return view('app.dashboard', [
+        $user = Auth::user();
+        
+        return view('app.pages.dashboard', [
             'userGuard' => $userGuard
         ]);
     }

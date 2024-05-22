@@ -1,10 +1,14 @@
 <?php
 
+/**Adm */
 use App\Http\Controllers\MdwAdm\AgentController as AgentAdmController;
 use App\Http\Controllers\MdwAdm\AuthController as AuthAdmController;
 use App\Http\Controllers\MdwAdm\DashboardController;
+
+/**App */
 use App\Http\Controllers\MdwApp\AppController;
 use App\Http\Controllers\MdwApp\AuthController as AuthAppController;
+use App\Http\Controllers\MdwApp\LeadController as LeadAppController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +23,10 @@ Route::group(['prefix' => 'app', 'as' => 'app.'], function(){
     /**Middleware mdwapp Group */
     Route::group(['middleware' => ['mdwapp']], function(){
         Route::get('dashboard', [AppController::class, 'dashboard'])->name('dashboard');
+
+        /** Leads */
+        Route::get('adicionar-lead', [LeadAppController::class, 'create'])->name('adicionar-lead');
+        Route::post('adicionar-lead', [LeadAppController::class, 'store'])->name('store-lead');
     });
 
     Route::get('logout', [AppController::class, 'logout'])->name('logout');
@@ -33,6 +41,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
      /**Middleware mdwadm Group */
     Route::group(['middleware' => ['mdwadm']], function(){
         Route::get('dashboard', [DashboardController::class,'dashboard'])->name('dashboard');
+        /**Agentes */
         Route::get('agentes', [AgentAdmController::class, 'index'])->name('index-agentes');
         Route::get('agentes/{id}', [AgentAdmController::class, 'show'])->name('show-agente');
         Route::get('adcionar-agente', [AgentAdmController::class, 'create'])->name('create-agente');

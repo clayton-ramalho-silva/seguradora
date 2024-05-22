@@ -11,7 +11,10 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        $userGuard = User::activeGuard();
+        //$userGuard = User::activeGuard();
+        $userGuard = Auth::user();
+
+        //dd($userGuard);
         
         return view('admin.pages.dashboard', [
             'userGuard' => $userGuard
