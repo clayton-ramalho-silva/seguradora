@@ -9,10 +9,18 @@ use Illuminate\Support\Facades\Auth;
 
 class LeadController extends Controller
 {
-    public function create()
-    { 
+    public function index()
+    {
         $user = Auth::user();
-        
+
+        $leads = Lead::where('agent_id', $user->agent->id)->get();
+
+        return view('app.pages.index', ['leads' => $leads]);
+    }
+
+
+    public function create()
+    {                
 
         return view('app.pages.create');
     }
@@ -20,8 +28,7 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         
-        $user = Auth::user();        
-
+        $user = Auth::user();  
         $lead = new Lead;
        
         $lead->name_client = $request->name_client;

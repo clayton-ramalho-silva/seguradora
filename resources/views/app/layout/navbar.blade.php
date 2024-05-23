@@ -4,7 +4,7 @@
         <ul class="navbar-item flex-row">
             <li class="nav-item theme-logo">
                 <a href="index.html">
-                    <img src="{{ asset('assets/img/90x90.jpg') }}" class="navbar-logo" alt="logo">
+                    <img src="{{ asset('img/agentes/'. Auth::user()->agent->logo_company ) }}" class="navbar-logo" alt="logo">
                 </a>
             </li>
         </ul>
@@ -167,8 +167,8 @@
                         <div class="media mx-auto">
                             <img src="{{ asset('assets/img/90x90.jpg')}}" class="img-fluid mr-2" alt="avatar">
                             <div class="media-body">
-                                <h5>Alan Green</h5>
-                                <p>Project Leader</p>
+                                <h5>{{ Auth::user()->name }}</h5>
+                                <p>{{ Auth::user()->agent->name_company }}</p>
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                         </a>
                     </div>
                     <div class="dropdown-item">
-                        <a href="{{ route('app.logout') }}">
+                        <a href="{{ route('logout') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> <span>Log Out</span>
                         </a>
                     </div>

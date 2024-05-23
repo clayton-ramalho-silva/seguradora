@@ -16,10 +16,10 @@ class Authenticate
      */
     public function handle(Request $request, Closure $next): Response
     {              
-        if(auth()->check() && auth()->user()->client){
+        if ( Auth::guard('app')->check() === true ){
             return $next($request);
         }
 
-        return redirect( route('login') );
+        return redirect(route('app.login'));
     }
 }

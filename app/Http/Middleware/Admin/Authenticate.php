@@ -16,10 +16,10 @@ class Authenticate
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ( Auth::guard('admin')->check() === true ) {
+        if(auth()->check() && auth()->user()->admin){
             return $next($request);
         }
 
-        return redirect( route('admin.login') );
+        return redirect( route('login') );
     }
 }

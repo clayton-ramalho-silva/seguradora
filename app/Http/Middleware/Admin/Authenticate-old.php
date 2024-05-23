@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\App;
+namespace App\Http\Middleware\Admin;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -15,11 +15,11 @@ class Authenticate
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {              
-        if(auth()->check() && auth()->user()->client){
+    {
+        if ( Auth::guard('admin')->check() === true ) {
             return $next($request);
         }
 
-        return redirect( route('login') );
+        return redirect( route('admin.login') );
     }
 }
