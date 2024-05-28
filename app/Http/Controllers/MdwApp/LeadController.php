@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\MdwApp;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agent;
+use App\Models\Document;
 use App\Models\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,5 +42,17 @@ class LeadController extends Controller
         
 
         return redirect()->route('app.dashboard');
+    }
+
+    public function listarPlanilhas()
+    {
+        $user = Auth::user();
+        $agente = $user->agent->id;
+        
+        $planilhas = Document::where('agent_id', $agente)->get();
+
+        return view('app.pages.planilhas', ['planilhas' => $planilhas]);
+
+
     }
 }

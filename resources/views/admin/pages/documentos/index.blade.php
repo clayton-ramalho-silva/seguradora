@@ -5,36 +5,74 @@
 
     <div class="page-header">
         <div class="page-title">
-            <h3>Lista de Agentes</h3>
+            <h3>Documentos</h3>           
         </div>
     </div>
     
     <div class="row layout-top-spacing" id="cancel-row">
     
+        <div class="col-lg-12 col-12 layout-spacing">
+            <div class="statbox widget box box-shadow">
+                <div class="widget-header">                                
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                            <h4>Adicionar Planilha de Leads</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-area" style="box-shadow: none;">
+                    <form action="{{ route('admin.salvar-documento')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="form-group mb-4 col-6">
+                                <label for="exampleFormControlInput2">Nome da Planilha</label>
+                                <input name="tittle" type="text" class="form-control" id="exampleFormControlInput2" placeholder="Planilha 02/2004..." required>
+                                @error('tittle')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="form-group mb-4 col-3">
+                                <label for="exampleFormControlSelect1">Agente</label>
+                                <select  name="agent_id" class="form-control" id="exampleFormControlSelect1" required>
+                                    <option value="" disabled selected>Escolha Agente...</option>
+                                    @foreach($agentes as $agente)                                    
+                                        <option value="{{ $agente->id }}">{{ $agente->name_company }}</option>
+                                    @endforeach                                    
+                                </select>
+                                @error('agent_id')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            </div>
+                            
+                            <div class="form-group mb-4 mt-3 col-3">
+                                <label for="exampleFormControlFile1">Upload Planilha</label>
+                                <input name="document" type="file" class="form-control-file" id="exampleFormControlFile1" required>
+                                @error('document')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                            </div>
+
+                        </div>
+                        <input type="submit" name="time" class="mt-4 mb-4 btn btn-primary" value="Adicionar Planilha">
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-6">
                 <div class="table-responsive mb-4 mt-4">
                     <table id="default-ordering" class="table table-hover" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Empresa</th>
-                                <th>Contato</th>
-                                <th>Telefone</th>
-                                <th>E-mail</th>
-                                <th>Localização</th>                                
+                                <th>Planilha</th>
+                                <th>Agente</th>
+                                <th>Data</th>                                                            
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Item Agente -->
-                            @foreach ($users as $user)
+                            @foreach ($documents as $document)
                                 
                             <tr>
-                                <td>{{ $user->agent->name_company }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->agent->phone_company }}</td>
-                                <td>{{ $user->agent->email_company }}</td>
-                                <td>São Paulo</td>                                
+                                <td>{{ $document->tittle }}</td>
+                                <td>{{ $document->agent->name_company }}</td>
+                                <td>{{ $document->created_at }}</td>                                                              
                                 <td class="">
                                     <div class="dropdown custom-dropdown">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -42,11 +80,8 @@
                                         </a>
                                         
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                            <a class="dropdown-item" href="{{ route('admin.show-agente', $user->id) }}">Vizualizar</a>
-                                            <a class="dropdown-item" href="{{ route('admin.editar-agente', $user->id) }}">Editar</a>
-                                            <a class="dropdown-item" href="{{ route('admin.lista-leads', $user->id) }}">Ver Leads</a>
-                                            <a class="dropdown-item" href="#">Documentos</a>                                            
-                                            <a class="dropdown-item" href="{{ route('admin.deletar-agente', $user->id) }}">Deletar</a>
+                                            <a class="dropdown-item" href="{{ asset('planilhas\\'.$document->document) }}">Baixar</a>                                            
+                                            <a class="dropdown-item" href="{{ route('admin.deletar-documento', $document->id) }}">Deletar</a>
                                         </div>
                                     </div>
 
@@ -59,12 +94,9 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Empresa</th>
-                                <th>Contato</th>
-                                <th>Telefone</th>
-                                <th>E-mail</th>
-                                <th>Localização</th>
-                                
+                                <th>Planilha</th>
+                                <th>Agente</th>
+                                <th>Data</th>                               
                                 <th class="invisible"></th>
                             </tr>
                         </tfoot>
@@ -87,6 +119,7 @@
         transform: none;
     }
 </style>
+<link href="{{ asset('assets/css/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
     
 @endpush
 
@@ -108,5 +141,6 @@
             drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
 	    } );
     </script>
+    <script src="{{ asset('assets/js/scrollspyNav.js') }}"></script>
     
 @endpush

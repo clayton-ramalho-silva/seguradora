@@ -5,7 +5,7 @@
 
     <div class="page-header">
         <div class="page-title">
-            <h3>Lista de Agentes</h3>
+            <h3>Leads</h3>
         </div>
     </div>
     
@@ -17,23 +17,23 @@
                     <table id="default-ordering" class="table table-hover" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Empresa</th>
-                                <th>Contato</th>
+                                <th>Cliente</th>
                                 <th>Telefone</th>
                                 <th>E-mail</th>
+                                <th>Agente</th>
                                 <th>Localização</th>                                
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Item Agente -->
-                            @foreach ($users as $user)
+                            @foreach ($leads as $lead)
                                 
                             <tr>
-                                <td>{{ $user->agent->name_company }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->agent->phone_company }}</td>
-                                <td>{{ $user->agent->email_company }}</td>
+                                <td>{{ $lead->name_client }}</td>
+                                <td>{{ $lead->phone_client }}</td>
+                                <td>{{ $lead->email_client }}</td>
+                                <td>{{ $lead->agent->name_company }}</td>
                                 <td>São Paulo</td>                                
                                 <td class="">
                                     <div class="dropdown custom-dropdown">
@@ -42,11 +42,10 @@
                                         </a>
                                         
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                            <a class="dropdown-item" href="{{ route('admin.show-agente', $user->id) }}">Vizualizar</a>
-                                            <a class="dropdown-item" href="{{ route('admin.editar-agente', $user->id) }}">Editar</a>
-                                            <a class="dropdown-item" href="{{ route('admin.lista-leads', $user->id) }}">Ver Leads</a>
-                                            <a class="dropdown-item" href="#">Documentos</a>                                            
-                                            <a class="dropdown-item" href="{{ route('admin.deletar-agente', $user->id) }}">Deletar</a>
+                                            <a class="dropdown-item" href="#">Vizualizar</a>
+                                            <a class="dropdown-item" href="#">Editar</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Ver Leads</a>                                            
+                                            <a class="dropdown-item" href="#">Deletar</a>
                                         </div>
                                     </div>
 
@@ -59,10 +58,10 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Empresa</th>
-                                <th>Contato</th>
+                                <th>Cliente</th>
                                 <th>Telefone</th>
                                 <th>E-mail</th>
+                                <th>Agent</th>
                                 <th>Localização</th>
                                 
                                 <th class="invisible"></th>

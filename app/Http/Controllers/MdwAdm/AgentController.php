@@ -4,6 +4,7 @@ namespace App\Http\Controllers\MdwAdm;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agent;
+use App\Models\Document;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -133,7 +134,9 @@ class AgentController extends Controller
                 unlink(public_path('img/agentes/'.$logo_company_atual));
             }
 
-        }       
+        }else{
+            $logo_company = $user->agent->logo_company;
+        }
 
         Agent::where('user_id', $user->id)->update([
             'name_company' => $request->name_company,
@@ -155,5 +158,65 @@ class AgentController extends Controller
         $user->delete();
 
         return redirect()->route('admin.index-agentes');
+    }
+
+    public function leads(String $id)
+    {
+        $user = User::find($id);
+        $leads = $user->agent->leads;
+        
+        return view('admin.pages.leads-agents', ['leads' => $leads]);
+    }
+
+
+    public function documents()
+    {
+        $documents = Document::all();
+        $agentes = Agent::all();
+
+        return view('admin.pages.documentos.index', ['documents' => $documents, 'agentes' => $agentes]);
+    }
+
+    public function storeDocument(Request $request)
+    {
+        $request->validate([
+            'tittle' => 'required',
+            'agent_id' => 'required',
+            'document' => 'required|mimes:xls,xlsx'
+        ]);
+
+        $document = new Document;
+        $document->tittle = $request->tittle;
+        $document->agent_id = $request->agent_id;
+
+         // upload planilha
+       if($request->hasFile('document') && $request->file('document')->isValid()){
+        $requestDocument = $request->document;
+        $extension = $requestDocument->extension();
+        $documentName = md5($requestDocument->getClientOriginalName() . strtotime("now")) . "." . $extension;
+        $requestDocument->move(public_path('planilhas'), $documentName);
+
+        $document->document = $documentName;
+       }
+
+       $document->save();
+
+       return redirect()->route('admin.documentos');
+        
+    }
+
+    public function deleteDocument(String $id)
+    {      
+        $planilha = Document::find($id);
+        $filePath = public_path('planilhas\\'.$planilha->document);
+        $exists = file_exists($filePath);
+        if($exists){
+            unlink(public_path('planilhas\\'.$planilha->document));
+            $planilha->delete();            
+        }else{
+            $planilha->delete();
+        }
+        
+        return redirect()->route('admin.documentos');
     }
 }
